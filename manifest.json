@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Topacai tamagotchi",
+  "author": "topocaidev@gmail.com",
+  "version": "0.0.1",
+  "description": "Simple cat tamagotchi",
+  "icons": {
+    "512": "./assets/icon.png"
+  },
+  "action": {
+    "default_popup": "./popup/popup.html",
+    "default_icon": "./assets/icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["./content-scripts/chatgpt.js"]
+    }
+  ],
+  "permissions": ["activeTab", "storage"]
+}
