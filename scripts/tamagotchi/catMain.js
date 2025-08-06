@@ -5,6 +5,8 @@ const states_map = {
   unhappy: cat_unhappy,
 };
 
+const FrameUpdateEvent = new CustomEvent("frameUpdate");
+
 let state_current = "idle";
 let state_interval;
 let state_frame = 0;
@@ -28,6 +30,7 @@ function UpdateCat(state, frame) {
     return console.error("No animation set found");
   }
   display_cat = animation_set[frame];
+  document.dispatchEvent(FrameUpdateEvent);
 }
 
 /**
@@ -63,20 +66,24 @@ function ShowOnPage(duration = 5000) {
   pre.style.padding = "25px";
   pre.style.margin = "10px";
   pre.style.fontFamily = "JetBrains Mono, monospace";
-  pre.style.fontSize = "14px";
+  pre.style.fontSize = "16px";
   pre.style.whiteSpace = "pre";
 
   pre.style.display = "flex";
   pre.style.flexDirection = "column";
   pre.style.alignItems = "center";
+
+  pre.textContent = display_cat;
   document.body.appendChild(pre);
 
-  const interval = setInterval(() => {
+  const listener = () => {
     pre.textContent = display_cat;
-  }, 50);
+  };
+
+  document.addEventListener("frameUpdate", listener);
 
   setTimeout(() => {
-    clearInterval(interval);
+    document.removeEventListener("frameUpdate", listener);
     pre.remove();
   }, duration);
 }

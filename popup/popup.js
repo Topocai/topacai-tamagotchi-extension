@@ -1,3 +1,7 @@
+const display_cat_element = document.getElementById("cat-popup");
+
+display_cat_element.textContent = display_cat;
+
 document.getElementById("changeState").addEventListener("click", function () {
   NextState();
 });
@@ -6,7 +10,6 @@ document.getElementById("actionPet").addEventListener("click", function () {
   CatActionReducer(null, PetAction());
 });
 
-setInterval(() => {
-  let cat_pre = document.getElementById("cat-popup");
-  if (cat_pre) cat_pre.textContent = display_cat;
-}, 50);
+document.addEventListener("frameUpdate", () => {
+  if (display_cat_element) display_cat_element.textContent = display_cat;
+});

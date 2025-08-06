@@ -6,7 +6,6 @@ const actions_map = {
 
 let action_current = "pet";
 let action_interval;
-let action_stop_interval;
 let action_frame = 0;
 let action_performing = false;
 let action_speed = 500;
@@ -76,11 +75,10 @@ function PerformCatAction(action, speed = 500) {
   UpdateCat(action_current, 0);
 
   // Waits for action animation to finish and start state animation
-  action_stop_interval = setInterval(() => {
+  setTimeout(() => {
     action_performing = false;
 
     clearInterval(action_interval);
-    clearInterval(action_stop_interval);
 
     StartCatStateHandler();
   }, speed * actions_map[action].length + 1);
