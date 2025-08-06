@@ -9,6 +9,8 @@ let state_current = "idle";
 let state_interval;
 let state_frame = 0;
 
+let display_cat = "";
+
 /**
  * Updates the displayed cat animation based on the given state and frame.
  *
@@ -25,8 +27,7 @@ function UpdateCat(state, frame) {
   if (!animation_set) {
     return console.error("No animation set found");
   }
-
-  document.getElementById("cat").textContent = animation_set[frame];
+  display_cat = animation_set[frame];
 }
 
 /**
@@ -50,6 +51,36 @@ function StopCatStateHandler() {
   clearInterval(state_interval);
 }
 
+function ShowOnPage(duration = 5000) {
+  const pre = document.createElement("pre");
+  pre.style.background = "black";
+  pre.style.color = "white";
+  pre.style.position = "fixed";
+  pre.style.bottom = "10px";
+  pre.style.right = "10px";
+  pre.style.zIndex = "9999";
+  pre.style.border = "1px solid #ccc";
+  pre.style.padding = "25px";
+  pre.style.margin = "10px";
+  pre.style.fontFamily = "JetBrains Mono, monospace";
+  pre.style.fontSize = "14px";
+  pre.style.whiteSpace = "pre";
+
+  pre.style.display = "flex";
+  pre.style.flexDirection = "column";
+  pre.style.alignItems = "center";
+  document.body.appendChild(pre);
+
+  const interval = setInterval(() => {
+    pre.textContent = display_cat;
+  }, 50);
+
+  setTimeout(() => {
+    clearInterval(interval);
+    pre.remove();
+  }, duration);
+}
+
 /**
  * Switches to the next state in the states map, and updates the displayed cat.
  *
@@ -68,13 +99,5 @@ const SetState = (newState) => {
   state_current = newState;
   UpdateCat(state_current, 0);
 };
-
-document.getElementById("changeState").addEventListener("click", function () {
-  NextState();
-});
-
-document.getElementById("actionPet").addEventListener("click", function () {
-  CatActionReducer(null, PetAction());
-});
 
 StartCatStateHandler();

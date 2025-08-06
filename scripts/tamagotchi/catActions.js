@@ -1,6 +1,7 @@
 const actions_map = {
   pet: cat_action_pet,
   eat: cat_action_eat,
+  gpt: cat_content_gpt,
 };
 
 let action_current = "pet";
@@ -8,6 +9,7 @@ let action_interval;
 let action_stop_interval;
 let action_frame = 0;
 let action_performing = false;
+let action_speed = 500;
 
 const CatActionReducer = (state, action) => {
   switch (action.type) {
@@ -35,6 +37,14 @@ const EatAction = (speed = 500) => ({
   },
 });
 
+const GPTAction = (speed = 500) => ({
+  type: "PERFORM_ACTION",
+  payload: {
+    action: "gpt",
+    speed,
+  },
+});
+
 /**
  * Performs a given cat action, stopping any current state animation and
  * waiting for the action animation to finish before resuming the state
@@ -45,6 +55,8 @@ const EatAction = (speed = 500) => ({
  */
 function PerformCatAction(action, speed = 500) {
   if (action_performing) return;
+
+  action_speed = speed;
 
   action_performing = true;
   // Stop state animator

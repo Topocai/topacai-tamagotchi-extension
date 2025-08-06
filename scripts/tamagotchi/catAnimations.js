@@ -36,3 +36,9 @@ const cat_action_pet = [
   ` /\\_/\\  \n( UwU ) ❤️\n > ^ < `,
   ` /\\_/\\  \n( ^w^ ) 💖\n > ^ < `,
 ];
+
+const cat_content_gpt = [
+  ` /\\_/\\  SYSTEM READY\n |°_°| > 🧠 INIT AI_CAT\n /___\\ `,
+  ` /\\_/\\  ACCESS GRANTED\n |•_•| > 💾 DATA LOADED\n /___\\ `,
+  ` /\\_/\\  WELCOME\n |^_^| > ☕ IDLE MODE\n /___\\ `,
+];

@@ -7,6 +7,9 @@ body {
   flex-direction: column;
   align-items: center;
 
+  padding-left: 20px;
+  padding-right: 20px;
+
   background-color: black;
   color: white;
 }
@@ -15,4 +18,5 @@ pre {
   font-family: "JetBrains Mono", monospace;
   font-size: 16px;
   white-space: pre;
+  margin: 10px;
 }
