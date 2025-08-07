@@ -14,12 +14,7 @@
   "content_scripts": [
     {
       "matches": ["https://chatgpt.com/*"],
-      "js": [
-        "./scripts/tamagotchi/catAnimations.js",
-        "./scripts/tamagotchi/catMain.js",
-        "./scripts/tamagotchi/catActions.js",
-        "./content-scripts/chatgpt.js"
-      ]
+      "js": ["./content-scripts/chatgpt.js"]
     },
     {
       "matches": ["<all_urls>"],

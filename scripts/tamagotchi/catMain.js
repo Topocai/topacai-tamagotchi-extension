@@ -20,16 +20,10 @@ let display_cat = "";
  * @param {number} frame - Specific frame index to display
  */
 function UpdateCat(state, frame) {
-  let animation_set = states_map[state];
+  let animation_set = GetAnimation(state);
 
-  if (!animation_set) {
-    animation_set = actions_map[action_current];
-  }
-
-  if (!animation_set) {
-    return console.error("No animation set found");
-  }
   display_cat = animation_set[frame];
+
   document.dispatchEvent(FrameUpdateEvent);
 }
 
@@ -52,6 +46,20 @@ function StartCatStateHandler() {
 
 function StopCatStateHandler() {
   clearInterval(state_interval);
+}
+
+function GetAnimation(state) {
+  let animation_set = states_map[state];
+
+  if (!animation_set) {
+    animation_set = actions_map[action_current];
+  }
+
+  if (!animation_set) {
+    return console.error("No animation set found");
+  }
+
+  return animation_set;
 }
 
 function ShowOnPage(duration = 5000) {

@@ -1,6 +1,10 @@
-/* popup.css */
+:root {
+  --color-main: #e5a0f1;
+  --color-secondary: #b57bc0;
+}
+
 body {
-  width: 200px;
+  width: 330px;
   padding: 10px;
 
   display: flex;
@@ -13,10 +17,71 @@ body {
   background-color: black;
   color: white;
 }
-
+/*
 pre {
   font-family: "JetBrains Mono", monospace;
   font-size: 16px;
   white-space: pre;
   margin: 10px;
+}*/
+
+main {
+  border: 1px inset black;
+  padding: 5px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 330px;
+}
+
+#stats {
+  min-width: 275px;
+}
+
+button {
+  background-color: #333;
+  color: var(--color-main);
+  border: 1px solid var(--color-main);
+  border-radius: 0;
+  font-family: "Fira Code", "Consolas", monospace;
+  cursor: pointer;
+  outline: none;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: var(--color-main);
+  color: #333;
+}
+button:active {
+  background-color: var(--color-secondary);
+}
+
+li {
+  font-size: 14px;
+  font-family: "Fira Code", "Consolas", monospace;
+}
+
+#buttons {
+  display: grid;
+  width: 75px;
+}
+
+#catContainer {
+  border: 1px inset var(--color-main);
+  min-width: 250px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100px;
+}
+
+#cat-popup {
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: 16px;
 }
