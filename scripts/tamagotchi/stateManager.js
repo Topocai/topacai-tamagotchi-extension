@@ -1,5 +1,7 @@
 import { setFrameInterval as FrameInterval } from "./frameManager.js";
 
+// Universal and current tamagotchi state
+// Here all persistent data will be stored
 export let tamagotchiState = {
   state: "idle",
   action: null,
@@ -8,6 +10,13 @@ export let tamagotchiState = {
   frameMax: 3,
 };
 
+/**
+ * Creates an interval that updates the tamagotchi animation in a specific speed
+ * and reset previous interval if it exists, util to prevent earlier updates when
+ * changing animation
+ *
+ * @param {number} [speed=1000] - The speed at which the animation should be updated
+ */
 export const resetFrameInterval = (speed = 1000) => {
   FrameInterval(() => {
     tamagotchiState.frame =
@@ -16,13 +25,20 @@ export const resetFrameInterval = (speed = 1000) => {
   }, speed);
 };
 
+/**
+ * Updates the tamagotchi state locally and broadcasts it to other parts
+ * of the application. Stores the updated state in local storage and sends
+ * an event with new state.
+ *
+ * @returns {Object} The updated tamagotchi state.
+ */
 export const updateAndBroadcast = () => {
   tamagotchiState = { ...tamagotchiState };
 
-  // Guardar en almacenamiento persistente
+  // Saves the current tamagotchi state at local data
   chrome.storage.local.set({ tamagotchiState });
 
-  // Notificar a todos los contextos abiertos
+  // Broadcasts the current tamagotchi state
   chrome.runtime.sendMessage({
     type: "STATE_UPDATED",
     payload: tamagotchiState,
