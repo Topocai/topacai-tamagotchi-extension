@@ -1,25 +1,36 @@
 const display_cat_element = document.getElementById("cat-popup");
 
-document.getElementById("changeState").addEventListener("click", function () {
-  /*const newState = NextState();
+function getFrame(callback) {
+  chrome.runtime.sendMessage({ ...ActionDefinitions.GET_FRAME }, (response) => {
+    callback(response);
+  });
+}
 
+function updateCatElement() {
+  if (display_cat_element) {
+    getFrame((frame) => {
+      display_cat_element.textContent = frame;
+    });
+  }
+}
+
+updateCatElement();
+
+document.getElementById("changeState").addEventListener("click", function () {
   chrome.runtime.sendMessage({
-    type: "SET_STATE",
-    payload: { state: newState },
-  });*/
+    type: ActionDefinitions.NEXT_STATE.type,
+  });
 });
 
 document.getElementById("actionPet").addEventListener("click", function () {
-  //CatActionReducer(null, PetAction());
+  chrome.runtime.sendMessage({
+    type: ActionDefinitions.PERFORM_ACTION.type,
+    payload: ActionDefinitions.PERFORM_ACTION.payloads.pet,
+  });
 });
-/*
-document.addEventListener("frameUpdate", () => {
-  if (display_cat_element) display_cat_element.textContent = display_cat;
-});*/
 
 chrome.runtime.onMessage.addListener((message) => {
-  chrome.runtime.sendMessage({ type: "GET_FRAME" }, (response) => {
-    console.log(response);
-    if (display_cat_element) display_cat_element.textContent = response;
-  });
+  if (message.type !== ActionDefinitions.UPDATE.type) return;
+
+  updateCatElement();
 });

@@ -2,7 +2,7 @@ import { performAction, setState, getCurrentFrame, NextState } from "./core.js";
 
 import { tamagotchiState } from "./stateManager.js";
 
-import { ActionDefinitions } from "./actions.js";
+import { ActionDefinitions } from "./definitions.js";
 
 /**
  * Handles incoming messages from the browser.

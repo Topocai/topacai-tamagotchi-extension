@@ -32,8 +32,8 @@ export const resetFrameInterval = (speed = 1000) => {
  *
  * @returns {Object} The updated tamagotchi state.
  */
-export const updateAndBroadcast = () => {
-  tamagotchiState = { ...tamagotchiState };
+export const updateAndBroadcast = (newState) => {
+  tamagotchiState = { ...tamagotchiState, ...newState };
 
   // Saves the current tamagotchi state at local data
   chrome.storage.local.set({ tamagotchiState });
