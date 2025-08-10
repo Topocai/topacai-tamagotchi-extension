@@ -1,4 +1,7 @@
-import { animations_map as animations } from "./animations.js";
+import {
+  animations_map as animations,
+  states_map as states_animations,
+} from "./animations.js";
 import {
   tamagotchiState,
   updateAndBroadcast,
@@ -53,4 +56,21 @@ export const setState = (state, speed = 1000) => {
     frameMax: animations[state].length,
     frame: 0,
   });
+};
+
+/**
+ * **DEBUG METHOD**
+ * Switches to the next state in the states map, and updates the displayed cat.
+ *
+ * @function
+ */
+export const NextState = () => {
+  const newState =
+    Object.keys(states_animations)[
+      (Object.keys(states_animations).indexOf(tamagotchiState.state) + 1) %
+        Object.keys(states_animations).length
+    ];
+  setState(newState);
+
+  return newState;
 };

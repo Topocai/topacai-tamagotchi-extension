@@ -52,3 +52,10 @@ export const animations_map = {
   pet: cat_action_pet,
   gpt: cat_content_gpt,
 };
+
+export const states_map = {
+  idle: cat_idle,
+  happy: cat_happy,
+  sleeping: cat_sleeping,
+  unhappy: cat_unhappy,
+};

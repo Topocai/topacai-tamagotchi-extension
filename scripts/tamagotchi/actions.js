@@ -10,6 +10,7 @@ export const ActionDefinitions = {
   SET_STATE: { type: "SET_STATE" },
   GET_FRAME: { type: "GET_FRAME" },
   GET_STATE: { type: "GET_STATE" },
+  NEXT_STATE: { type: "NEXT_STATE" },
 };
 
 export const PetAction = (speed = 500) => ({
