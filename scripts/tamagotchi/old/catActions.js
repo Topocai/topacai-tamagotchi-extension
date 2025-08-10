@@ -66,13 +66,13 @@ function PerformCatAction(action, speed = 500) {
   action_current = action;
 
   action_interval = setInterval(() => {
-    UpdateCat(
+    UpdateDisplay(
       action_current,
       (action_frame = (action_frame + 1) % actions_map[action].length)
     );
   }, speed);
 
-  UpdateCat(action_current, 0);
+  UpdateDisplay(action_current, 0);
 
   // Waits for action animation to finish and start state animation
   setTimeout(() => {

@@ -16,11 +16,11 @@ let display_cat = "";
 /**
  * Updates the displayed cat animation based on the given state and frame.
  *
- * @param {string} state - The current state of the cat, based on states map
+ * @param {string} animation - The current state of the cat, based on states map
  * @param {number} frame - Specific frame index to display
  */
-function UpdateCat(state, frame) {
-  let animation_set = GetAnimation(state);
+function UpdateDisplay(animation, frame) {
+  let animation_set = GetAnimation(animation);
 
   display_cat = animation_set[frame];
 
@@ -36,12 +36,12 @@ function UpdateCat(state, frame) {
 function StartCatStateHandler() {
   state_frame = 0;
   state_interval = setInterval(() => {
-    UpdateCat(
+    UpdateDisplay(
       state_current,
       (state_frame = (state_frame + 1) % states_map[state_current].length)
     );
   }, 750);
-  UpdateCat(state_current, 0);
+  UpdateDisplay(state_current, 0);
 }
 
 function StopCatStateHandler() {
@@ -107,12 +107,14 @@ const NextState = () => {
       (Object.keys(states_map).indexOf(state_current) + 1) %
         Object.keys(states_map).length
     ];
-  UpdateCat(state_current, 0);
+  UpdateDisplay(state_current, 0);
+
+  return state_current;
 };
 
 const SetState = (newState) => {
   state_current = newState;
-  UpdateCat(state_current, 0);
+  UpdateDisplay(state_current, 0);
 };
 
 StartCatStateHandler();

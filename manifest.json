@@ -4,6 +4,10 @@
   "author": "topocaidev@gmail.com",
   "version": "0.0.1",
   "description": "Simple cat tamagotchi",
+  "background": {
+    "service_worker": "scripts/background.js",
+    "type": "module"
+  },
   "icons": {
     "512": "./assets/icon.png"
   },
@@ -11,20 +15,5 @@
     "default_popup": "./popup/popup.html",
     "default_icon": "./assets/icon.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://chatgpt.com/*"],
-      "js": ["./content-scripts/chatgpt.js"]
-    },
-    {
-      "matches": ["<all_urls>"],
-      "js": [
-        "./scripts/tamagotchi/catAnimations.js",
-        "./scripts/tamagotchi/catMain.js",
-        "./scripts/tamagotchi/catActions.js",
-        "./content-scripts/content-script.js"
-      ]
-    }
-  ],
   "permissions": ["activeTab", "storage"]
 }
