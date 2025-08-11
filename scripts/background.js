@@ -3,7 +3,22 @@ import {
   setFrameInterval as FrameInterval,
   startGameLoop,
 } from "./tamagotchi/gameLoop.js";
-import { resetFrameInterval } from "./tamagotchi/stateManager.js";
+import {
+  resetFrameInterval,
+  loadData,
+  setStats,
+} from "./tamagotchi/stateManager.js";
+
+//startGameLoop();
+
+chrome.runtime.onStartup.addListener(loadData);
+chrome.runtime.onInstalled.addListener(loadData);
+
+chrome.commands.onCommand.addListener((command) => {
+  if (command === "reset-stats") {
+    setStats({ hungry: 100, happiness: 100, sleep: 100 });
+  }
+});
 
 // manage all runtime events in extension
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -16,8 +31,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   return true;
 });
-
-startGameLoop();
 
 // Start the cat frame animation loop
 FrameInterval(resetFrameInterval);

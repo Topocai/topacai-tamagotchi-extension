@@ -1,6 +1,6 @@
 import { performAction, setState, getCurrentFrame, NextState } from "./core.js";
 
-import { tamagotchiState } from "./stateManager.js";
+import { tamagotchiState, getStats } from "./stateManager.js";
 
 import { ActionDefinitions } from "./definitions.js";
 
@@ -28,6 +28,8 @@ export const MessageHandler = (message, sender) => {
       return tamagotchiState;
     case ActionDefinitions.NEXT_STATE.type:
       return NextState();
+    case ActionDefinitions.GET_STATS.type:
+      return getStats();
     default:
       return tamagotchiState;
   }

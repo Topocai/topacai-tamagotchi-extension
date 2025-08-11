@@ -1,6 +1,3 @@
-const TICKS = 20;
-
-let gameLoop = null;
 let FrameInterval = null;
 
 /**
@@ -15,9 +12,12 @@ export const setFrameInterval = (callback, speed = 1000) => {
   FrameInterval = setInterval(callback, speed);
 };
 
-export const startGameLoop = () => {
-  if (gameLoop) return;
-  gameLoop = setInterval(() => {
-    chrome.runtime.sendMessage({ type: "TICK" });
-  }, 1000 / TICKS);
+export const startGameLoop = async () => {
+  chrome.alarms.get("gameLoop", (alarm) => {
+    if (!alarm) {
+      chrome.alarms.create("gameLoop", {
+        periodInMinutes: 1 / 60, // 1 per second, is the minimum recommended
+      });
+    }
+  });
 };

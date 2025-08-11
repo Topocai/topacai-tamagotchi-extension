@@ -15,5 +15,15 @@
     "default_popup": "./popup/popup.html",
     "default_icon": "./assets/icon.png"
   },
-  "permissions": ["activeTab", "storage"]
+
+  "commands": {
+    "reset-stats": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "For debug purposes, reset all stats to 100"
+    }
+  },
+  "permissions": ["activeTab", "storage", "alarms", "commands"]
 }

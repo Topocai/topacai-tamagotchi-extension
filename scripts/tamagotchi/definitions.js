@@ -36,4 +36,10 @@ export const ActionDefinitions = {
   GET_STATE: { type: "GET_STATE" },
   NEXT_STATE: { type: "NEXT_STATE" },
   UPDATE: { type: "STATE_UPDATED" },
+  TICK: { type: "TICK" },
+  GET_STATS: { type: "GET_STATS" },
+};
+
+export const AlarmDefinitions = {
+  TICK: { name: "TICK", storage: "gameLoopKey" },
 };

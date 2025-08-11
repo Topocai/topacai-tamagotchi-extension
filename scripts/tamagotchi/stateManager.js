@@ -1,4 +1,6 @@
-import { setFrameInterval as FrameInterval } from "./frameManager.js";
+import { setFrameInterval as FrameInterval } from "./gameLoop.js";
+
+import { AlarmDefinitions } from "./definitions.js";
 
 // Universal and current tamagotchi state
 // Here all persistent data will be stored
@@ -8,6 +10,47 @@ export let tamagotchiState = {
 
   frame: 0,
   frameMax: 3,
+};
+
+export let tamagotchiStats = {
+  hungry: 0,
+  happiness: 0,
+  sleep: 0,
+};
+
+const HUNGRY_LOST_PER_SECOND = 100 / (60 * 5);
+const HAPPINESS_LOST_PER_SECOND = 100 / (60 * 5);
+const SLEEP_LOST_PER_SECOND = 100 / (60 * 5);
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name !== "gameLoop") return;
+
+  // losts 100 points of hungry in 20 minutes, recovers 33 points for each eat interaction, with 2.5 minutes cooldown
+  // losts 100 points of happiness in 60 minutes, recovers 18 points for each pet interaction, with 1.5 minutes cooldown
+  // losts 100 points of sleep in 180 minutes, recovers 100 points in 60 minutes if it is sleeping
+
+  tamagotchiStats.hungry -= HUNGRY_LOST_PER_SECOND;
+  tamagotchiStats.happiness -= HAPPINESS_LOST_PER_SECOND;
+  tamagotchiStats.sleep -= SLEEP_LOST_PER_SECOND;
+
+  chrome.storage.local.set({ tamagotchiStats });
+});
+
+export const loadData = () => {
+  chrome.storage.local.get(["tamagotchiState", "tamagotchiStats"], (data) => {
+    tamagotchiState = data.tamagotchiState || tamagotchiState;
+    tamagotchiStats = data.tamagotchiStats || tamagotchiStats;
+  });
+};
+
+export const getStats = () => tamagotchiStats;
+
+export const setStats = (stats) => {
+  const { hungry, happiness, sleep } = stats;
+
+  tamagotchiStats = { ...tamagotchiStats, hungry, happiness, sleep };
+
+  chrome.storage.local.set({ tamagotchiStats });
 };
 
 /**
