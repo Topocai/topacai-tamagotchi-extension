@@ -1,3 +1,6 @@
+const TICKS = 20;
+
+let gameLoop = null;
 let FrameInterval = null;
 
 /**
@@ -10,4 +13,11 @@ let FrameInterval = null;
 export const setFrameInterval = (callback, speed = 1000) => {
   if (FrameInterval) clearInterval(FrameInterval);
   FrameInterval = setInterval(callback, speed);
+};
+
+export const startGameLoop = () => {
+  if (gameLoop) return;
+  gameLoop = setInterval(() => {
+    chrome.runtime.sendMessage({ type: "TICK" });
+  }, 1000 / TICKS);
 };

@@ -1,5 +1,8 @@
 import { MessageHandler } from "./tamagotchi/messageHandler.js";
-import { setFrameInterval as FrameInterval } from "./tamagotchi/frameManager.js";
+import {
+  setFrameInterval as FrameInterval,
+  startGameLoop,
+} from "./tamagotchi/gameLoop.js";
 import { resetFrameInterval } from "./tamagotchi/stateManager.js";
 
 // manage all runtime events in extension
@@ -13,6 +16,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   return true;
 });
+
+startGameLoop();
 
 // Start the cat frame animation loop
 FrameInterval(resetFrameInterval);
