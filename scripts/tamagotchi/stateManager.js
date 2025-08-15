@@ -1,7 +1,4 @@
-import { setFrameInterval as FrameInterval } from "./gameLoop.js";
-
-import { AlarmDefinitions } from "./definitions.js";
-
+import { startFrameLoop } from "./gameLoop.js";
 // Universal and current tamagotchi state
 // Here all persistent data will be stored
 export let tamagotchiState = {
@@ -38,7 +35,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 export const loadData = () => {
   chrome.storage.local.get(["tamagotchiState", "tamagotchiStats"], (data) => {
-    tamagotchiState = data.tamagotchiState || tamagotchiState;
+    updateAndBroadcast({ ...(data.tamagotchiState || tamagotchiState) });
     tamagotchiStats = data.tamagotchiStats || tamagotchiStats;
   });
 };
@@ -58,13 +55,14 @@ export const setStats = (stats) => {
  * and reset previous interval if it exists, util to prevent earlier updates when
  * changing animation
  *
- * @param {number} [speed=1000] - The speed at which the animation should be updated
+ * @param {number} [speed=1] - The speed at which the animation should be updated
  */
-export const resetFrameInterval = (speed = 1000) => {
-  FrameInterval(() => {
-    tamagotchiState.frame =
-      (tamagotchiState.frame + 1) % tamagotchiState.frameMax;
-    updateAndBroadcast({});
+export const resetFrameLoop = (speed = 1) => {
+  // tried to mute the frame loop error message when nobody service worker is inactive but I cant
+  startFrameLoop(() => {
+    updateAndBroadcast({
+      frame: (tamagotchiState.frame + 1) % tamagotchiState.frameMax,
+    });
   }, speed);
 };
 

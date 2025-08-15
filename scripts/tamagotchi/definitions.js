@@ -1,4 +1,4 @@
-export const PetAction = (speed = 500) => ({
+export const PetAction = (speed = 2) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "pet",
@@ -6,7 +6,7 @@ export const PetAction = (speed = 500) => ({
   },
 });
 
-export const EatAction = (speed = 500) => ({
+export const EatAction = (speed = 2) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "eat",
@@ -14,7 +14,7 @@ export const EatAction = (speed = 500) => ({
   },
 });
 
-export const GPTAction = (speed = 500) => ({
+export const GPTAction = (speed = 2) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "gpt",
@@ -35,6 +35,7 @@ export const ActionDefinitions = {
   GET_FRAME: { type: "GET_FRAME" },
   GET_STATE: { type: "GET_STATE" },
   NEXT_STATE: { type: "NEXT_STATE" },
+  NEW_FRAME: { type: "NEW_FRAME" },
   UPDATE: { type: "STATE_UPDATED" },
   TICK: { type: "TICK" },
   GET_STATS: { type: "GET_STATS" },

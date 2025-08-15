@@ -18,10 +18,10 @@ export const MessageHandler = (message, sender) => {
     case ActionDefinitions.PERFORM_ACTION.type:
       return performAction(
         message.payload.action,
-        message.payload.speed || 750
+        message.payload.speed || 1.5
       );
     case ActionDefinitions.SET_STATE.type:
-      return setState(message.payload.state, message.payload.speed || 1000);
+      return setState(message.payload);
     case ActionDefinitions.GET_FRAME.type:
       return getCurrentFrame();
     case ActionDefinitions.GET_STATE.type:

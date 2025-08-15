@@ -5,7 +5,7 @@ import {
 import {
   tamagotchiState,
   updateAndBroadcast,
-  resetFrameInterval,
+  resetFrameLoop,
 } from "./stateManager.js";
 
 /**
@@ -27,35 +27,30 @@ export const getCurrentFrame = () => {
  * animation.
  *
  * @param {string} action - The action to perform
- * @param {number} [speed=1000] - The speed at which to perform the action
+ * @param {number} [speed=1] - The speed at which to perform the action
  *
  * @returns {Object} The updated tamagotchi state
  */
-export const performAction = (action, speed = 1000) => {
-  resetFrameInterval(speed);
+export const performAction = (action, speed = 1) => {
+  resetFrameLoop(speed);
 
   const frameCount = animations[action].length;
 
   setTimeout(
     () => updateAndBroadcast({ action: null, frame: 0 }),
-    speed * frameCount
+    (1000 / speed) * frameCount
   );
 
   return updateAndBroadcast({
     action,
-    frame: 0,
     frameMax: frameCount,
   });
 };
 
-export const setState = (state, speed = 1000) => {
-  resetFrameInterval(speed);
-
-  return updateAndBroadcast({
-    state,
-    frameMax: animations[state].length,
-    frame: 0,
-  });
+export const setState = (state) => {
+  const speed = state.speed || 1;
+  resetFrameLoop(speed);
+  return updateAndBroadcast({ ...state });
 };
 
 /**
@@ -70,7 +65,5 @@ export const NextState = () => {
       (Object.keys(states_animations).indexOf(tamagotchiState.state) + 1) %
         Object.keys(states_animations).length
     ];
-  setState(newState);
-
-  return newState;
+  return setState({ state: newState });
 };

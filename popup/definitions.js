@@ -1,4 +1,4 @@
-const PetAction = (speed = 500) => ({
+const PetAction = (speed = 2) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "pet",
@@ -6,7 +6,7 @@ const PetAction = (speed = 500) => ({
   },
 });
 
-const EatAction = (speed = 500) => ({
+const EatAction = (speed = 2) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "eat",
@@ -14,7 +14,7 @@ const EatAction = (speed = 500) => ({
   },
 });
 
-const GPTAction = (speed = 500) => ({
+const GPTAction = (speed = 2) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "gpt",

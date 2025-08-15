@@ -1,15 +1,10 @@
 import { MessageHandler } from "./tamagotchi/messageHandler.js";
+import { startGameLoop } from "./tamagotchi/gameLoop.js";
 import {
-  setFrameInterval as FrameInterval,
-  startGameLoop,
-} from "./tamagotchi/gameLoop.js";
-import {
-  resetFrameInterval,
   loadData,
   setStats,
+  resetFrameLoop,
 } from "./tamagotchi/stateManager.js";
-
-//startGameLoop();
 
 chrome.runtime.onStartup.addListener(loadData);
 chrome.runtime.onInstalled.addListener(loadData);
@@ -28,9 +23,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const res = MessageHandler(message, sender);
 
   if (res) sendResponse(res);
-
-  return true;
 });
 
-// Start the cat frame animation loop
-FrameInterval(resetFrameInterval);
+startGameLoop();
+
+resetFrameLoop();
