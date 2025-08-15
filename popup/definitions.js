@@ -35,7 +35,13 @@ const ActionDefinitions = {
   GET_FRAME: { type: "GET_FRAME" },
   GET_STATE: { type: "GET_STATE" },
   NEXT_STATE: { type: "NEXT_STATE" },
-  UPDATE: { type: "STATE_UPDATED" },
+  NEW_FRAME: { type: "NEW_FRAME" },
+  STATE_UPDATE: { type: "STATE_UPDATED" },
+  STATS_UPDATE: { type: "STATS_UPDATED" },
   TICK: { type: "TICK" },
   GET_STATS: { type: "GET_STATS" },
+};
+
+const AlarmDefinitions = {
+  TICK: { name: "TICK", storage: "gameLoopKey" },
 };

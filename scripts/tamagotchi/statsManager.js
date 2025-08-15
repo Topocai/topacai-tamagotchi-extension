@@ -6,9 +6,9 @@ export let tamagotchiStats = {
   sleep: 0,
 };
 
-const HUNGRY_LOST_PER_SECOND = 100 / (60 * 5);
-const HAPPINESS_LOST_PER_SECOND = 100 / (60 * 5);
-const SLEEP_LOST_PER_SECOND = 100 / (60 * 5);
+const HUNGRY_LOST_PER_SECOND = 100 / (60 * 1); // 1 minute for debug
+const HAPPINESS_LOST_PER_SECOND = 100 / (60 * 1);
+const SLEEP_LOST_PER_SECOND = 100 / (60 * 1);
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name !== "gameLoop") return;
@@ -46,6 +46,11 @@ export const setStats = (stats) => {
  * @returns {Object} The updated tamagotchi stats.
  */
 export const updateAndBroadcast = (newData) => {
+  Object.keys(newData).forEach((key) => {
+    if (newData[key] < 0) newData[key] = 0;
+    if (newData[key] > 100) newData[key] = 100;
+  });
+
   tamagotchiStats = { ...tamagotchiStats, ...newData };
 
   // Saves the current tamagotchi state at local data

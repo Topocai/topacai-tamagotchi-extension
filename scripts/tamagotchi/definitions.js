@@ -36,7 +36,8 @@ export const ActionDefinitions = {
   GET_STATE: { type: "GET_STATE" },
   NEXT_STATE: { type: "NEXT_STATE" },
   NEW_FRAME: { type: "NEW_FRAME" },
-  UPDATE: { type: "STATE_UPDATED" },
+  STATE_UPDATE: { type: "STATE_UPDATED" },
+  STATS_UPDATE: { type: "STATS_UPDATED" },
   TICK: { type: "TICK" },
   GET_STATS: { type: "GET_STATS" },
 };
