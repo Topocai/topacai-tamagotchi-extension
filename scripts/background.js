@@ -8,6 +8,7 @@ import {
 import {
   loadData as loadStatsData,
   setStats,
+  tamagotchiStats,
 } from "./tamagotchi/statsManager.js";
 
 const loadData = () => {
@@ -20,7 +21,11 @@ chrome.runtime.onInstalled.addListener(loadData);
 
 chrome.commands.onCommand.addListener((command) => {
   if (command === "reset-stats") {
-    setStats({ hungry: 100, happiness: 100, sleep: 100 });
+    const newStats = {};
+    Object.keys(tamagotchiStats).forEach((key) => {
+      newStats[key] = 100;
+    });
+    setStats(newStats);
   }
 });
 
