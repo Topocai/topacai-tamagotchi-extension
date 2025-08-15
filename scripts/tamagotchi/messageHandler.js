@@ -1,6 +1,7 @@
 import { performAction, setState, getCurrentFrame, NextState } from "./core.js";
 
-import { tamagotchiState, getStats } from "./stateManager.js";
+import { tamagotchiState } from "./stateManager.js";
+import { getStats } from "./statsManager.js";
 
 import { ActionDefinitions } from "./definitions.js";
 

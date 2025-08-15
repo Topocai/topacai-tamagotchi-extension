@@ -8,7 +8,7 @@ let FrameInterval = null;
  * @param {function} callback - The function to be called on each interval, make sure to pass `resetFrameInterval` from stateManager
  * @param {number} [speed=1] - The speed at which the animation should be updated
  */
-export const setFrameInterval = (callback, speed = 1000) => {
+export const startFrameLoop = (callback, speed = 1000) => {
   if (FrameInterval) clearInterval(FrameInterval);
   FrameInterval = setInterval(callback, 1000 / speed);
 };
