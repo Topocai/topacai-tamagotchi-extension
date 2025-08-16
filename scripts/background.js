@@ -11,6 +11,13 @@ import {
   tamagotchiStats,
 } from "./tamagotchi/statsManager.js";
 
+import {
+  createCooldown,
+  setCooldown,
+  setCooldown,
+  checkAndRecoverCooldown,
+} from "./tamagotchi/cooldownManager.js";
+
 const loadData = () => {
   loadStateData();
   loadStatsData();
@@ -18,6 +25,8 @@ const loadData = () => {
 
 chrome.runtime.onStartup.addListener(loadData);
 chrome.runtime.onInstalled.addListener(loadData);
+
+checkAndRecoverCooldown("eat");
 
 chrome.commands.onCommand.addListener((command) => {
   if (command === "reset-stats") {
@@ -27,6 +36,22 @@ chrome.commands.onCommand.addListener((command) => {
     });
     setStats(newStats);
   }
+
+  if (command === "debug-command") {
+    const cooldownTest = createCooldown("eat", 1);
+
+    setCooldown(cooldownTest);
+  }
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  const nameSplited = alarm.name.split("_");
+
+  if (nameSplited[-1] !== "cooldown") return;
+
+  console.log("Cooldown fired");
+
+  chrome.storage.local.remove(alarm.name);
 });
 
 // manage all runtime events in extension

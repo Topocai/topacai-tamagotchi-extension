@@ -23,6 +23,13 @@
         "mac": "Command+Shift+L"
       },
       "description": "For debug purposes, reset all stats to 100"
+    },
+    "debug-command": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Call a debug command"
     }
   },
   "permissions": ["activeTab", "storage", "alarms", "commands"]
