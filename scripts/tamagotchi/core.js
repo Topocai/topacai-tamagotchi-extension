@@ -48,17 +48,21 @@ export const performAction = async (action, speed = 1) => {
     await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
   }
 
+  // Reset frame loop to zero to avoid faster update in first frame
   resetFrameLoop(speed);
-  const frameCount = animations[action].length;
 
+  /*
   setTimeout(
     () => updateAndBroadcast({ action: null, frame: 0 }),
     (1000 / speed) * frameCount
-  );
+  );*/
+
+  const actionName = inCooldown ? `cooldown_${action}` : action;
 
   return updateAndBroadcast({
-    action: inCooldown ? `cooldown_${action}` : action,
-    frameMax: frameCount,
+    frame: 0,
+    action: inCooldown ? `cooldown_${action}` : action, // if the action is on cooldown displays the cooldown animation
+    frameMax: animations[actionName].length,
   });
 };
 

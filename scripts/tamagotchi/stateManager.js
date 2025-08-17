@@ -1,4 +1,5 @@
 import { startFrameLoop } from "./gameLoop.js";
+import { animations_map } from "./animations.js";
 // Universal and current tamagotchi state
 // Here all persistent data will be stored
 export let tamagotchiState = {
@@ -24,9 +25,24 @@ export const loadData = () => {
  */
 export const resetFrameLoop = (speed = 1) => {
   // tried to mute the frame loop error message when nobody service worker is inactive but I cant
+
+  // Frame loop make sure to always update the animation to an apropiate frame value
+  // also removes the action animation when it finishes, by this, if the action was saved on storage
+  // and recovered it also ends
   startFrameLoop(() => {
+    const nextFrame = tamagotchiState.frame + 1;
+    // Check if is needed to remove the current action
+    const removeAction =
+      tamagotchiState.action && nextFrame >= tamagotchiState.frameMax;
+    // If the current action is removed, updates the frame max with the current state animation length
+    const frameMax = removeAction
+      ? animations_map[tamagotchiState.state].length
+      : tamagotchiState.frameMax;
+
     updateAndBroadcast({
-      frame: (tamagotchiState.frame + 1) % tamagotchiState.frameMax,
+      action: removeAction ? null : tamagotchiState.action,
+      frame: nextFrame % tamagotchiState.frameMax,
+      frameMax,
     });
   }, speed);
 };
