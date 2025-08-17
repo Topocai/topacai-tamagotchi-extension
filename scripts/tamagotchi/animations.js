@@ -31,10 +31,22 @@ const cat_action_eat = [
   ` /\\_/\\  \n( >w< ) 🥛\n > ^ < `,
 ];
 
+const cat_cooldown_eat = [
+  ` /\\_/\\  \n( >_< ) 🍗\n > ^ < `,
+  ` /\\_/\\  \n( ಠ_ಠ ) 🐟\n > ^ < `,
+  ` /\\_/\\  \n( -_- ) ✖️\n > ^ < `,
+];
+
 const cat_action_pet = [
   ` /\\_/\\  \n( ^_^ ) 💕\n > ^ < `,
   ` /\\_/\\  \n( UwU ) ❤️\n > ^ < `,
   ` /\\_/\\  \n( ^w^ ) 💖\n > ^ < `,
+];
+
+const cat_cooldown_pet = [
+  ` /\\_/\\  \n( >:C ) 💢\n > ^ < `,
+  ` /\\_/\\  \n( ಠ益ಠ ) 👋\n > ^ < `,
+  ` /\\_/\\  \n( >_< ) 🛑\n > ^ < `,
 ];
 
 const cat_content_gpt = [
@@ -51,6 +63,8 @@ export const animations_map = {
   eat: cat_action_eat,
   pet: cat_action_pet,
   gpt: cat_content_gpt,
+  cooldown_eat: cat_cooldown_eat,
+  cooldown_pet: cat_cooldown_pet,
 };
 
 export const states_map = {

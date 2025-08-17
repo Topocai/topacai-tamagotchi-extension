@@ -42,17 +42,13 @@ export const getCurrentFrame = () => {
 export const performAction = async (action, speed = 1) => {
   const actionInfo = Actions[action];
 
-  const inCooldown = await CheckCooldown(actionInfo.type);
+  const inCooldown = actionInfo && (await CheckCooldown(actionInfo.type));
 
-  if (inCooldown) {
-    console.warn("is on cooldown");
-    return;
+  if (!inCooldown && actionInfo) {
+    await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
   }
 
-  await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
-
   resetFrameLoop(speed);
-
   const frameCount = animations[action].length;
 
   setTimeout(
@@ -61,7 +57,7 @@ export const performAction = async (action, speed = 1) => {
   );
 
   return updateAndBroadcast({
-    action,
+    action: inCooldown ? `cooldown_${action}` : action,
     frameMax: frameCount,
   });
 };
