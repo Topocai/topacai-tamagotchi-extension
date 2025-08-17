@@ -33,9 +33,12 @@ export const loadData = () => {
 export const getStats = () => tamagotchiStats;
 
 export const setStats = (stats) => {
-  const { hungry, happiness, sleep } = stats;
+  const newStats = Object.keys(tamagotchiStats).reduce((acc, key) => {
+    acc[key] = stats[key] || tamagotchiStats[key];
+    return acc;
+  }, {});
 
-  updateAndBroadcast({ hungry, happiness, sleep });
+  updateAndBroadcast(newStats);
 };
 
 /**
