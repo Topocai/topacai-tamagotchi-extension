@@ -115,7 +115,10 @@ export const getCooldownRemaining = (cooldown) => {
 };
 
 export const isOnCooldown = (cooldown) => {
-  const { end } = cooldown;
+  const cooldownObject = cooldown[Object.keys(cooldown)[0]] || cooldown;
+  return cooldownObject.end === undefined || Date.now() < cooldownObject.end;
+};
 
-  return Date.now() < end;
+export const CheckCooldown = async (action) => {
+  return isOnCooldown(await getSavedCooldown(createCooldownKey(action)));
 };

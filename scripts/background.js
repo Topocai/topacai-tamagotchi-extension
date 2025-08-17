@@ -44,9 +44,10 @@ chrome.commands.onCommand.addListener((command) => {
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === "gameLoop") return;
   const nameSplited = alarm.name.split("_");
 
-  if (nameSplited[-1] !== "cooldown") return;
+  if (nameSplited[nameSplited.length - 1] !== "cooldown") return;
 
   console.log("Cooldown fired");
 

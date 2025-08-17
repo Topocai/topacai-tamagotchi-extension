@@ -8,6 +8,14 @@ import {
   resetFrameLoop,
 } from "./stateManager.js";
 
+import {
+  setCooldown,
+  createCooldown,
+  CheckCooldown,
+} from "./cooldownManager.js";
+
+import { Actions } from "./actions.js";
+
 /**
  * Returns the current frame of the cat animation, based on the
  * current state and action. If there is an action, uses the action
@@ -31,7 +39,18 @@ export const getCurrentFrame = () => {
  *
  * @returns {Object} The updated tamagotchi state
  */
-export const performAction = (action, speed = 1) => {
+export const performAction = async (action, speed = 1) => {
+  const actionInfo = Actions[action];
+
+  const inCooldown = await CheckCooldown(actionInfo.type);
+
+  if (inCooldown) {
+    console.warn("is on cooldown");
+    return;
+  }
+
+  await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
+
   resetFrameLoop(speed);
 
   const frameCount = animations[action].length;
