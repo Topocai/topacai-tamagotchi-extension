@@ -14,7 +14,6 @@ import {
 import {
   createCooldown,
   setCooldown,
-  setCooldown,
   checkAndRecoverCooldown,
 } from "./tamagotchi/cooldownManager.js";
 
