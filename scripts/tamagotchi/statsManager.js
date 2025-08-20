@@ -41,6 +41,15 @@ export const setStats = (stats) => {
   updateAndBroadcast(newStats);
 };
 
+export const addStats = (stats) => {
+  const newStats = Object.keys(tamagotchiStats).reduce((acc, key) => {
+    acc[key] = tamagotchiStats[key] + (stats[key] || 0);
+    return acc;
+  }, {});
+
+  updateAndBroadcast(newStats);
+};
+
 /**
  * Updates the tamagotchi stats locally and broadcasts it to other parts
  * of the application. Stores the updated state in local storage and sends

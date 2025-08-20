@@ -2,7 +2,7 @@ export const Pet = () => ({
   type: "pet",
   cooldown: 1,
   recover: {
-    hapinness: 18,
+    happiness: 18,
   },
 });
 

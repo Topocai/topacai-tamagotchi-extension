@@ -2,11 +2,14 @@ import {
   animations_map as animations,
   states_map as states_animations,
 } from "./animations.js";
+
 import {
   tamagotchiState,
   updateAndBroadcast,
   resetFrameLoop,
 } from "./stateManager.js";
+
+import { addStats } from "./statsManager.js";
 
 import {
   setCooldown,
@@ -41,21 +44,20 @@ export const getCurrentFrame = () => {
  */
 export const performAction = async (action, speed = 1) => {
   const actionInfo = Actions[action];
+  let inCooldown = false;
 
-  const inCooldown = actionInfo && (await CheckCooldown(actionInfo.type));
+  if (actionInfo) {
+    inCooldown = await CheckCooldown(actionInfo.type);
 
-  if (!inCooldown && actionInfo) {
-    await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
+    if (!inCooldown) {
+      await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
+
+      addStats(actionInfo.recover);
+    }
   }
 
   // Reset frame loop to zero to avoid faster update in first frame
   resetFrameLoop(speed);
-
-  /*
-  setTimeout(
-    () => updateAndBroadcast({ action: null, frame: 0 }),
-    (1000 / speed) * frameCount
-  );*/
 
   const actionName = inCooldown ? `cooldown_${action}` : action;
 
