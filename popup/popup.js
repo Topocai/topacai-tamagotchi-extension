@@ -77,6 +77,17 @@ document.getElementById("actionPet").addEventListener("click", function () {
   });
 });
 
+document.getElementById("actionEat").addEventListener("click", function () {
+  chrome.runtime.sendMessage({
+    type: ActionDefinitions.PERFORM_ACTION.type,
+    payload: ActionDefinitions.PERFORM_ACTION.payloads.eat,
+  });
+});
+
+document.getElementById("actionSleep").addEventListener("click", function () {
+  chrome.runtime.sendMessage(ActionDefinitions.SWITCH_SLEEP);
+});
+
 //============================================= [ BUTTON LISTENERS ] =============================================
 
 // Frame Update

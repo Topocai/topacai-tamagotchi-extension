@@ -32,6 +32,7 @@ export const ActionDefinitions = {
     },
   },
   SET_STATE: { type: "SET_STATE" },
+  SWITCH_SLEEP: { type: "SWITCH_SLEEP" },
   GET_FRAME: { type: "GET_FRAME" },
   GET_STATE: { type: "GET_STATE" },
   NEXT_STATE: { type: "NEXT_STATE" },

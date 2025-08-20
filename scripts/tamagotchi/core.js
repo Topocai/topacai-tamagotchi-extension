@@ -9,7 +9,13 @@ import {
   resetFrameLoop,
 } from "./stateManager.js";
 
-import { addStats } from "./statsManager.js";
+import {
+  addStats,
+  HUNGRY_LOST_PER_SECOND,
+  HAPPINESS_LOST_PER_SECOND,
+  SLEEP_LOST_PER_SECOND,
+  SLEEP_RECOVER_PER_SECOND,
+} from "./statsManager.js";
 
 import {
   setCooldown,
@@ -27,9 +33,18 @@ import { Actions } from "./actions.js";
  * @returns {string} The current frame of the cat animation
  */
 export const getCurrentFrame = () => {
-  return animations[
-    tamagotchiState.action ? tamagotchiState.action : tamagotchiState.state
-  ][tamagotchiState.frame];
+  const animationSet =
+    animations[
+      tamagotchiState.action ? tamagotchiState.action : tamagotchiState.state
+    ];
+
+  if (tamagotchiState.frameMax > animationSet.length) {
+    updateAndBroadcast({
+      frameMax: animationSet.length,
+      frame: frame % animationSet.length,
+    });
+  }
+  return animationSet[tamagotchiState.frame];
 };
 
 /**
@@ -74,6 +89,12 @@ export const setState = (state) => {
   return updateAndBroadcast({ ...state });
 };
 
+export const switchSleep = () => {
+  return setState({
+    state: tamagotchiState.state === "sleeping" ? "idle" : "sleeping",
+  });
+};
+
 /**
  * **DEBUG METHOD**
  * Switches to the next state in the states map, and updates the displayed cat.
@@ -88,3 +109,15 @@ export const NextState = () => {
     ];
   return setState({ state: newState });
 };
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name !== "gameLoop") return;
+  addStats({
+    hungry: -HUNGRY_LOST_PER_SECOND,
+    happiness: -HAPPINESS_LOST_PER_SECOND,
+    sleep:
+      tamagotchiState.state === "sleeping"
+        ? SLEEP_RECOVER_PER_SECOND
+        : -SLEEP_LOST_PER_SECOND,
+  });
+});
