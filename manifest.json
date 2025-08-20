@@ -32,5 +32,15 @@
       "description": "Call a debug command"
     }
   },
-  "permissions": ["activeTab", "storage", "alarms", "commands"]
+  "permissions": ["activeTab", "storage", "alarms", "commands"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "./scripts/utils/definitions.js",
+        "./scripts/utils/displayCat.js",
+        "./content-scripts/content-script.js"
+      ]
+    }
+  ]
 }

@@ -1,3 +1,5 @@
+// NON MODULE SCRIPT!
+
 /**
  * Create a bar display using used-free values
  *

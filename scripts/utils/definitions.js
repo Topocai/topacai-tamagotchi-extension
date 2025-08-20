@@ -1,3 +1,6 @@
+/// clone of original file definitions.js on tamagotchi/definitions.js
+/// but used for non-module scripts
+
 const PetAction = (speed = 2) => ({
   type: "PERFORM_ACTION",
   payload: {
@@ -14,7 +17,7 @@ const EatAction = (speed = 2) => ({
   },
 });
 
-const GPTAction = (speed = 2) => ({
+const GPTAction = (speed = 0.8) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "gpt",
