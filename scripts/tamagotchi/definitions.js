@@ -22,6 +22,38 @@ export const CookiesAction = (speed = 1) => ({
   },
 });
 
+export const SleepyAction = (speed = 1) => ({
+  type: "PERFORM_ACTION",
+  payload: {
+    action: "sleepy",
+    speed,
+  },
+});
+
+export const HungryAction = (speed = 1) => ({
+  type: "PERFORM_ACTION",
+  payload: {
+    action: "hungry",
+    speed,
+  },
+});
+
+export const NeedyAction = (speed = 1) => ({
+  type: "PERFORM_ACTION",
+  payload: {
+    action: "needy",
+    speed,
+  },
+});
+
+export const CriticalAction = (speed = 1) => ({
+  type: "PERFORM_ACTION",
+  payload: {
+    action: "critical",
+    speed,
+  },
+});
+
 export const GPTAction = (speed = 0.8) => ({
   type: "PERFORM_ACTION",
   payload: {

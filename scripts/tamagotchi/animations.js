@@ -61,6 +61,54 @@ const cat_action_cookie_detected = [
  > ^ <   Gracias humano 💕`,
 ];
 
+const cat_hungry = [
+  ` /\\_/\\  
+( ;_; ) 🍗
+ > ^ <   Tengo hambre...`,
+  ` /\\_/\\  
+( T_T ) 🐟
+ > ^ <   ¿Me das algo?`,
+  ` /\\_/\\  
+( >_< ) 🥛
+ > ^ <   ¡Alimentame ya!`,
+];
+
+const cat_sleepy = [
+  ` /\\_/\\  
+( -_- ) 💤
+ > ^ <   Necesito dormir...`,
+  ` /\\_/\\  
+( -.- ) zZ
+ > ^ <   Zzz...`,
+  ` /\\_/\\  
+( =_= ) 🛏️
+ > ^ <   No me molestes...`,
+];
+
+const cat_needy = [
+  ` /\\_/\\  
+( ;w; ) 💔
+ > ^ <   ¿Me acaricias?`,
+  ` /\\_/\\  
+( T_T ) 🤲
+ > ^ <   Me siento solo...`,
+  ` /\\_/\\  
+( u_u ) 🐾
+ > ^ <   Necesito amor...`,
+];
+
+const cat_critical = [
+  ` /\\_/\\  
+( x_x ) ⚠️
+ > ^ <   Sistema colapsando...`,
+  ` /\\_/\\  
+( >_< ) 💢
+ > ^ <   ¡Todo está mal!`,
+  ` /\\_/\\  
+( ;-; ) 🥀
+ > ^ <   Ayuda...`,
+];
+
 const cat_cooldown_pet = [
   ` /\\_/\\  \n( >:C ) 💢\n > ^ < `,
   ` /\\_/\\  \n( ಠ益ಠ ) 👋\n > ^ < `,
@@ -87,6 +135,10 @@ export const animations_map = {
   cooldown_eat: cat_cooldown_eat,
   cooldown_pet: cat_cooldown_pet,
   cookies: cat_action_cookie_detected,
+  hungry: cat_hungry,
+  sleepy: cat_sleepy,
+  needy: cat_needy,
+  critical: cat_critical,
 };
 
 export const states_map = {
