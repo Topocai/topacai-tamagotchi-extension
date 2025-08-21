@@ -25,4 +25,5 @@ export const Cookies = () => ({
 export const Actions = {
   pet: Pet(),
   eat: Eat(),
+  cookies: Cookies(),
 };

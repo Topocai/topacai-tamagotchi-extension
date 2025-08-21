@@ -51,7 +51,7 @@ const ShowOnPage = (duration = 5000) => {
   catContainer.style.position = "fixed";
   catContainer.style.bottom = "10px";
   catContainer.style.right = "10px";
-  catContainer.style.minWidth = "250px";
+  catContainer.style.minWidth = "310px";
   catContainer.style.zIndex = "999999999999999999999999999999";
 
   catContainer.style.padding = "25px";
