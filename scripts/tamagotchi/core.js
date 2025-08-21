@@ -15,6 +15,8 @@ import {
   HAPPINESS_LOST_PER_SECOND,
   SLEEP_LOST_PER_SECOND,
   SLEEP_RECOVER_PER_SECOND,
+  tamagotchiStats,
+  STAT_LOW_NOTIFICATION,
 } from "./statsManager.js";
 
 import {
@@ -23,6 +25,7 @@ import {
   CheckCooldown,
 } from "./cooldownManager.js";
 
+import { LowStatNotificators } from "./definitions.js";
 import { Actions } from "./actions.js";
 
 /**
@@ -111,8 +114,27 @@ export const NextState = () => {
   return setState({ state: newState });
 };
 
+/**
+ * Tries to send a message to the content script of the active tab, in order
+ * to show the cat on the page.
+ * @param {number} duration - The duration in milliseconds to show the cat.
+ */
+const TryShowOnPage = (duration) => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (tabs[0]) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        type: "SHOW_CAT",
+        duration,
+      });
+    }
+  });
+};
+
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name !== "gameLoop") return;
+
+  const prevStats = { ...tamagotchiStats };
+
   addStats({
     hungry: -HUNGRY_LOST_PER_SECOND,
     happiness: -HAPPINESS_LOST_PER_SECOND,
@@ -120,5 +142,18 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       tamagotchiState.state === "sleeping"
         ? SLEEP_RECOVER_PER_SECOND
         : -SLEEP_LOST_PER_SECOND,
+  });
+
+  // Check if any of the stats are low and notify the user showing on the current page
+
+  Object.keys(prevStats).forEach((stat) => {
+    if (
+      prevStats[stat] > STAT_LOW_NOTIFICATION[stat] &&
+      tamagotchiStats[stat] <= STAT_LOW_NOTIFICATION[stat]
+    ) {
+      const action = LowStatNotificators[stat];
+      performAction(action.payload.action, action.payload.speed);
+      TryShowOnPage(6000);
+    }
   });
 });

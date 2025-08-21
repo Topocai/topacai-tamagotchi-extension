@@ -10,6 +10,18 @@ export let tamagotchiStats = {
 // losts 100 points of happiness in 60 minutes, recovers 18 points for each pet interaction, with 1.5 minutes cooldown
 // losts 100 points of sleep in 180 minutes, recovers 100 points in 60 minutes if it is sleeping
 
+export const STAT_LOW_NOTIFICATION = {
+  hungry: 55,
+  happiness: 60,
+  sleep: 20,
+};
+
+export const STAT_CRITICAL_VALUE = {
+  hungry: 33,
+  happiness: 40,
+  sleep: 10,
+};
+
 export const HUNGRY_LOST_PER_SECOND = 100 / (60 * 1); // 1 minute for debug
 export const HAPPINESS_LOST_PER_SECOND = 100 / (60 * 1);
 export const SLEEP_LOST_PER_SECOND = 100 / (60 * 1);

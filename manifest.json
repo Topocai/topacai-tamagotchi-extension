@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Topacai tamagotchi",
   "author": "topocaidev@gmail.com",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Simple cat tamagotchi",
   "background": {
     "service_worker": "scripts/background.js",

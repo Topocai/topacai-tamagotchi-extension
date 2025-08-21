@@ -22,7 +22,7 @@ export const CookiesAction = (speed = 1) => ({
   },
 });
 
-export const SleepyAction = (speed = 1) => ({
+export const SleepyAction = (speed = 0.7) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "sleepy",
@@ -30,7 +30,7 @@ export const SleepyAction = (speed = 1) => ({
   },
 });
 
-export const HungryAction = (speed = 1) => ({
+export const HungryAction = (speed = 0.7) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "hungry",
@@ -38,7 +38,7 @@ export const HungryAction = (speed = 1) => ({
   },
 });
 
-export const NeedyAction = (speed = 1) => ({
+export const NeedyAction = (speed = 0.7) => ({
   type: "PERFORM_ACTION",
   payload: {
     action: "needy",
@@ -85,4 +85,10 @@ export const ActionDefinitions = {
 
 export const AlarmDefinitions = {
   TICK: { name: "TICK", storage: "gameLoopKey" },
+};
+
+export const LowStatNotificators = {
+  hungry: HungryAction(),
+  happiness: NeedyAction(),
+  sleep: SleepyAction(),
 };
