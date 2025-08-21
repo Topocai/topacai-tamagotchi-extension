@@ -17,6 +17,14 @@ const EatAction = (speed = 2) => ({
   },
 });
 
+const CookiesAction = (speed = 1) => ({
+  type: "PERFORM_ACTION",
+  payload: {
+    action: "cookies",
+    speed,
+  },
+});
+
 const GPTAction = (speed = 0.8) => ({
   type: "PERFORM_ACTION",
   payload: {

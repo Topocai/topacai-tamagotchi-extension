@@ -14,6 +14,14 @@ export const Eat = () => ({
   },
 });
 
+export const Cookies = () => ({
+  type: "cookies",
+  recover: {
+    happiness: 10,
+    hungry: 10,
+  },
+});
+
 export const Actions = {
   pet: Pet(),
   eat: Eat(),

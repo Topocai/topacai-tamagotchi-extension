@@ -43,6 +43,24 @@ const cat_action_pet = [
   ` /\\_/\\  \n( ^w^ ) 💖\n > ^ < `,
 ];
 
+const cat_action_cookie_detected = [
+  ` /\\_/\\  
+( o.o ) 🍪
+ > ^ <   sniff sniff...`,
+  ` /\\_/\\  
+( O.O ) 🍪
+ > ^ <   ¡Cookie detectada!`,
+  ` /\\_/\\  
+( ✧_✧ ) 🍪
+ > ^ <   ¡Objetivo adquirido!`,
+  ` /\\_/\\  
+( >w< ) 🍪
+ > ^ <   ¡Ñam Ñam!`,
+  ` /\\_/\\  
+( ^_^ ) 🍪
+ > ^ <   Gracias humano 💕`,
+];
+
 const cat_cooldown_pet = [
   ` /\\_/\\  \n( >:C ) 💢\n > ^ < `,
   ` /\\_/\\  \n( ಠ益ಠ ) 👋\n > ^ < `,
@@ -68,6 +86,7 @@ export const animations_map = {
   gpt: cat_content_gpt,
   cooldown_eat: cat_cooldown_eat,
   cooldown_pet: cat_cooldown_pet,
+  cookies: cat_action_cookie_detected,
 };
 
 export const states_map = {

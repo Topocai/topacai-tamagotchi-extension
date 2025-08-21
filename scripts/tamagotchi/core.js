@@ -65,7 +65,8 @@ export const performAction = async (action, speed = 1) => {
     inCooldown = await CheckCooldown(actionInfo.type);
 
     if (!inCooldown) {
-      await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
+      if (actionInfo.cooldown)
+        await setCooldown(createCooldown(actionInfo.type, actionInfo.cooldown));
 
       addStats(actionInfo.recover);
     }
