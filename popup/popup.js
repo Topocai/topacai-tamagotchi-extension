@@ -39,7 +39,7 @@ function UpdateStatDisplay(stat, value) {
     console.warn(`No stat display found for ${stat}`);
     return;
   }
-  STAT_DISPLAYS[stat].textContent = `${stat}: [${CreateBarWithStat(
+  STAT_DISPLAYS[stat].innerHTML = `${stat}: [${CreateBarWithStat(
     value
   )}] ${Math.floor(value)}%`;
 }
@@ -56,7 +56,36 @@ function InitStatDisplayers() {
 }
 
 const CreateBarWithStat = (stat) => {
-  return `${CreateBar(stat / 16, (100 - stat) / 16)}`;
+  const bar = `${CreateBar(stat / 16, (100 - stat) / 16)}`;
+
+  // Highligh "free" characteres with a specified color using <span> element
+  const free_first = bar.indexOf(bar_freeChar);
+  const free_last = bar.lastIndexOf(bar_freeChar);
+
+  const noFree = free_first === -1 || free_last === -1;
+
+  const freeHighlighted = noFree
+    ? bar
+    : bar.slice(0, free_first) + //Slice from start to the first character, and add the span element
+      `<span style="color: var(--color-main);">${bar_freeChar}` +
+      bar.slice(free_first + 1, free_last) +
+      `${bar_freeChar}</span>`; // close the span element on last element
+
+  // Highligh "used" characteres with a specified color using <span> element
+  const used_first = bar.indexOf(bar_usedChar);
+  const used_last = bar.lastIndexOf(bar_usedChar);
+
+  const noUsed = used_first === -1 || used_last === -1;
+
+  const usedHighlighted = noUsed
+    ? freeHighlighted
+    : bar.slice(0, used_first) + // Slice from start to the first character, and add the span element
+      `<span style="color: var(--color-secondary);">${bar_usedChar}` +
+      bar.slice(used_first + 1, used_last) +
+      `${bar_usedChar}</span>` + // close the span element
+      freeHighlighted.slice(used_last + 1); // add all the "free" characters already highlighted at the end of the string withouth including "used" characters
+
+  return usedHighlighted;
 };
 
 // Init visuals

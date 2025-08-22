@@ -7,12 +7,14 @@
  * @param {number} free - The amount of the bar that will be empty.
  * @return {string} The bar string.
  */
+
+const bar_usedChar = "▰";
+const bar_freeChar = "▱";
+
 const CreateBar = (used, free) => {
-  const full = "▰";
-  const empty = "▱";
   const total = used + free;
   used = Math.round((used / total) * 10);
   free = Math.round((free / total) * 10);
 
-  return full.repeat(used) + empty.repeat(free);
+  return bar_usedChar.repeat(used) + bar_freeChar.repeat(free);
 };
