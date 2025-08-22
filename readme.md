@@ -34,12 +34,17 @@ Cat also shows on your pages when it feels lonely, unhappy or hungry and want to
 #### Stats implementation
 
 To handle stats an `chrome.alarm` is running every second as a `game loop` timer and it is used to update stats and cat states. (see `gameLoop.js` and `core.js` for more details)
+* [Core.js game loop](https://github.com/Topocai/topacai-tamagotchi-extension/blob/ba6f3b43a66efe88b94668d6b9cc4fdc070e2834/scripts/tamagotchi/core.js#L134)
+* [GameLoop implementation](https://github.com/Topocai/topacai-tamagotchi-extension/blob/ba6f3b43a66efe88b94668d6b9cc4fdc070e2834/scripts/tamagotchi/gameLoop.js#L16C1-L16C3)
 
 All stats are managed using `chrome.storage` API and are saved when the browser is closed/opened. see `statsManager.js`
+* [Stat update and save](https://github.com/Topocai/topacai-tamagotchi-extension/blob/ba6f3b43a66efe88b94668d6b9cc4fdc070e2834/scripts/tamagotchi/statsManager.js#L64)
 
 #### Cooldown implementation
 
 `Eat` and `Pet` Actions has cooldown to avoid player spamming it and always keep the stats on top, cooldowns are managed with `chrome.alarms` in `cooldownManager.js`, these cooldowns are also saved using `chrome.storage` API and restored when the browser is closed/opened.
+* [Cooldown creation](https://github.com/Topocai/topacai-tamagotchi-extension/blob/ba6f3b43a66efe88b94668d6b9cc4fdc070e2834/scripts/tamagotchi/cooldownManager.js#L72)
+* [Core.js action cooldown](https://github.com/Topocai/topacai-tamagotchi-extension/blob/ba6f3b43a66efe88b94668d6b9cc4fdc070e2834/scripts/tamagotchi/core.js#L73)
 
 ### Installation
 
