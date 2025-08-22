@@ -27,3 +27,5 @@ export const Actions = {
   eat: Eat(),
   cookies: Cookies(),
 };
+
+export const RecoverCooldowns = [Pet().type, Eat().type];

@@ -11,22 +11,25 @@ import {
   tamagotchiStats,
 } from "./tamagotchi/statsManager.js";
 
-import {
-  createCooldown,
-  setCooldown,
-  checkAndRecoverCooldown,
-} from "./tamagotchi/cooldownManager.js";
+import { checkAndRecoverCooldown } from "./tamagotchi/cooldownManager.js";
+
+import { RecoverCooldowns } from "./tamagotchi/actions.js";
 
 const loadData = () => {
   loadStateData();
   loadStatsData();
 };
 
+// Load storage data on startup
 chrome.runtime.onStartup.addListener(loadData);
 chrome.runtime.onInstalled.addListener(loadData);
 
-checkAndRecoverCooldown("eat");
+// Check and recover for all possible cooldowns saved
+RecoverCooldowns.forEach((cooldown) => {
+  checkAndRecoverCooldown(cooldown);
+});
 
+// Shortcut command listener
 chrome.commands.onCommand.addListener((command) => {
   if (command === "reset-stats") {
     const newStats = {};
@@ -37,12 +40,10 @@ chrome.commands.onCommand.addListener((command) => {
   }
 
   if (command === "debug-command") {
-    const cooldownTest = createCooldown("eat", 1);
-
-    setCooldown(cooldownTest);
   }
 });
 
+// Cooldown finished listener
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "gameLoop") return;
   const nameSplited = alarm.name.split("_");
@@ -51,6 +52,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
   console.log("Cooldown fired");
 
+  // Remove cooldown from storage
   chrome.storage.local.remove(alarm.name);
 });
 
