@@ -17,6 +17,7 @@ import {
   SLEEP_RECOVER_PER_SECOND,
   tamagotchiStats,
   STAT_LOW_NOTIFICATION,
+  STAT_CRITICAL_VALUE,
 } from "./statsManager.js";
 
 import {
@@ -146,14 +147,39 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
   // Check if any of the stats are low and notify the user showing on the current page
 
+  let criticalStatCount = 0;
+
   Object.keys(prevStats).forEach((stat) => {
+    const action = LowStatNotificators[stat];
+
+    const statIsCritical = tamagotchiStats[stat] <= STAT_CRITICAL_VALUE[stat];
+
+    if (statIsCritical) criticalStatCount++;
+
+    const allStatsAreCritical =
+      criticalStatCount >= Object.keys(tamagotchiStats).length;
+
+    // If all stats are critical set critical state or reset to idle if not
+    if (allStatsAreCritical && tamagotchiState.state !== "critical") {
+      setState({ state: "critical", speed: 1 });
+      return;
+    } else if (!allStatsAreCritical && tamagotchiState.state === "critical") {
+      setState({ state: "idle", speed: 1 });
+    }
+
+    // Notify when a stat is low
     if (
       prevStats[stat] > STAT_LOW_NOTIFICATION[stat] &&
       tamagotchiStats[stat] <= STAT_LOW_NOTIFICATION[stat]
     ) {
-      const action = LowStatNotificators[stat];
       performAction(action.payload.action, action.payload.speed);
       TryShowOnPage(6000);
+    }
+
+    // Update the state with the current critical stat (even if another one is critical, the new one will be setted)
+    if (prevStats[stat] > STAT_CRITICAL_VALUE[stat] && statIsCritical) {
+      setState({ state: action.payload.action, speed: action.payload.speed });
+      TryShowOnPage(5000);
     }
   });
 });
