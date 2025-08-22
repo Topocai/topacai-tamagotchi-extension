@@ -1,10 +1,10 @@
 :root {
-  --color-main: #e5a0f1;
-  --color-secondary: #b57bc0;
+  --color-main: #a24169;
+  --color-secondary: #85224c;
 }
 
 body {
-  width: 330px;
+  width: 400px;
   padding: 10px;
 
   display: flex;
@@ -34,7 +34,7 @@ main {
   flex-direction: row;
   flex-wrap: wrap;
 
-  width: 330px;
+  width: 375px;
 }
 
 #stats {
@@ -44,7 +44,7 @@ main {
 button {
   background-color: #333;
   color: var(--color-main);
-  border: 1px solid var(--color-main);
+  border: 2px solid var(--color-main);
   border-radius: 0;
   font-family: "Fira Code", "Consolas", monospace;
   cursor: pointer;
@@ -72,7 +72,7 @@ li {
 
 #catContainer {
   border: 1px inset var(--color-main);
-  min-width: 250px;
+  min-width: 280px;
 
   display: flex;
   justify-content: center;

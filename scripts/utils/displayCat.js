@@ -21,14 +21,12 @@ const ShowOnPage = (duration = 5000) => {
   const style = document.createElement("style");
   style.textContent = `
 :root {
-  --color-main: #e5a0f1;
-  --color-secondary: #b57bc0;
+  --color-main: #a24169;
+  --color-secondary: #85224c;
 }
 
 #catContainer {
   border: 1px inset var(--color-main);
-  min-width: 250px;
-
   display: flex;
   justify-content: center;
   align-items: center;
