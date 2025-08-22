@@ -160,7 +160,11 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       criticalStatCount >= Object.keys(tamagotchiStats).length;
 
     // If all stats are critical set critical state or reset to idle if not
-    if (allStatsAreCritical && tamagotchiState.state !== "critical") {
+    if (
+      allStatsAreCritical &&
+      tamagotchiState.state !== "critical" &&
+      tamagotchiState.state !== "sleeping"
+    ) {
       setState({ state: "critical", speed: 1 });
       return;
     } else if (!allStatsAreCritical && tamagotchiState.state === "critical") {
