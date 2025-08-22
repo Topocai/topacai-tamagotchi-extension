@@ -17,16 +17,8 @@ body {
   background-color: black;
   color: white;
 }
-/*
-pre {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 16px;
-  white-space: pre;
-  margin: 10px;
-}*/
 
 main {
-  border: 1px inset black;
   padding: 5px;
 
   display: flex;
