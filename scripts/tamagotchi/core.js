@@ -43,10 +43,9 @@ export const getCurrentFrame = () => {
     ];
 
   if (tamagotchiState.frameMax > animationSet.length) {
-    updateAndBroadcast({
-      frameMax: animationSet.length,
-      frame: frame % animationSet.length,
-    });
+    tamagotchiState.frameMax = animationSet.length;
+    tamagotchiState.frame = tamagotchiState.frame % tamagotchiState.frameMax;
+    updateAndBroadcast({ ...tamagotchiState });
   }
   return animationSet[tamagotchiState.frame];
 };
